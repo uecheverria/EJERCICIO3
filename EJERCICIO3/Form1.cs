@@ -12,6 +12,16 @@ namespace EJERCICIO3
 {
     public partial class Form1 : Form
     {
+        /*
+            Autor: Unai Echeverria
+            Pasos realizados:
+                1. He modificado el dataGridView añadiendole el origen de datos de la pestaña de diseño
+                2. He eliminado las 4 columnas que habíamos añadido nosotros manualmente del dataGridView
+                3. He modificado las columnas añadidas por el origen de datos para hacerlas coincidir con las que teniamos
+                    En el dataGridView: Editar columnas > Diseño > Name. Cambiar el que venía por los nuestros (Nombre, Apellido, etc.)
+                4. En el tableAdapter (Datos.xsd), he modificado el delete y el update
+        */
+
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +31,10 @@ namespace EJERCICIO3
         {
             try
             {
-                dgv_contactos.Rows.Add(txt_nombre.Text, txt_apellido.Text, txt_direccion.Text, txt_telefono.Text);
+                this.contactosTableAdapter.Insert(txt_nombre.Text, txt_apellido.Text, txt_direccion.Text, txt_telefono.Text);
+                cargarForm();
+
+                //dgv_contactos.Rows.Add(txt_nombre.Text, txt_apellido.Text, txt_direccion.Text, txt_telefono.Text);
             }
             catch (Exception ex)
             {
@@ -38,7 +51,11 @@ namespace EJERCICIO3
             {
                 if (dgv_contactos.Rows.Count>0)
                 {
-                    dgv_contactos.Rows.RemoveAt(dgv_contactos.CurrentRow.Index);
+                    int idSeleccionado = Convert.ToInt32(dgv_contactos.Rows[dgv_contactos.CurrentRow.Index].Cells[0].Value);
+                    this.contactosTableAdapter.Delete(idSeleccionado);
+                    cargarForm();
+
+                    //dgv_contactos.Rows.RemoveAt(dgv_contactos.CurrentRow.Index);
                 }
                 else
                 {
@@ -58,7 +75,16 @@ namespace EJERCICIO3
         {
             try
             {
-                DataGridViewRow fila = dgv_contactos.CurrentRow;
+                int filaSeleccionada = dgv_contactos.CurrentRow.Index;
+                int idSeleccionado = Convert.ToInt32(dgv_contactos.Rows[dgv_contactos.CurrentRow.Index].Cells[0].Value);
+                this.contactosTableAdapter.Update(txt_nombre.Text, txt_apellido.Text, txt_direccion.Text, txt_telefono.Text, idSeleccionado);
+                cargarForm();
+
+                //Para mantener la seleccion que teniamos tras recargar la tabla
+                dgv_contactos.Rows[filaSeleccionada].Selected = true;
+                dgv_contactos.CurrentCell = dgv_contactos.Rows[filaSeleccionada].Cells[0];
+
+                /* DataGridViewRow fila = dgv_contactos.CurrentRow;
                 if (fila == null)
                 {
                     return;
@@ -67,7 +93,7 @@ namespace EJERCICIO3
                 fila.Cells["Nombre"].Value = txt_nombre.Text;
                 fila.Cells["Apellidos"].Value = txt_apellido.Text;
                 fila.Cells["Direccion"].Value = txt_direccion.Text;
-                fila.Cells["Telefono"].Value = txt_telefono.Text;
+                fila.Cells["Telefono"].Value = txt_telefono.Text;*/
             }
             catch (Exception ex)
             {
@@ -99,7 +125,8 @@ namespace EJERCICIO3
                     return;
                 }
 
-                txt_nombre.Text = fila.Cells["Nombre"].Value.ToString();
+                //El nombre por defecto era este: nombreDataGridViewTextBoxColumn, lo he cambiado por los que usabamos
+                txt_nombre.Text = fila.Cells["Nombre"].Value.ToString();        
                 txt_apellido.Text = fila.Cells["Apellidos"].Value.ToString();
                 txt_direccion.Text = fila.Cells["Direccion"].Value.ToString();
                 txt_telefono.Text = fila.Cells["Telefono"].Value.ToString();
@@ -109,6 +136,15 @@ namespace EJERCICIO3
                 MessageBox.Show("Ha ocurrido un error. " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargarForm();
+        }
+
+        private void cargarForm() {
+            this.contactosTableAdapter.Fill(this.datos.Contactos);
         }
     }
 }

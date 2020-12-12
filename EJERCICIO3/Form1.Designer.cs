@@ -29,6 +29,7 @@ namespace EJERCICIO3
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_limpiar = new System.Windows.Forms.Button();
@@ -45,18 +46,24 @@ namespace EJERCICIO3
             this.txt_nombre = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgv_contactos = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.contactosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.datos = new EJERCICIO3.Datos();
+            this.contactosTableAdapter = new EJERCICIO3.DatosTableAdapters.ContactosTableAdapter();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_contactos)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.contactosBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datos)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -215,12 +222,15 @@ namespace EJERCICIO3
             this.dgv_contactos.AllowUserToAddRows = false;
             this.dgv_contactos.AllowUserToDeleteRows = false;
             this.dgv_contactos.AllowUserToOrderColumns = true;
+            this.dgv_contactos.AutoGenerateColumns = false;
             this.dgv_contactos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_contactos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn,
             this.Nombre,
             this.Apellidos,
             this.Direccion,
             this.Telefono});
+            this.dgv_contactos.DataSource = this.contactosBindingSource;
             this.dgv_contactos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_contactos.Location = new System.Drawing.Point(0, 0);
             this.dgv_contactos.Name = "dgv_contactos";
@@ -228,30 +238,6 @@ namespace EJERCICIO3
             this.dgv_contactos.Size = new System.Drawing.Size(443, 235);
             this.dgv_contactos.TabIndex = 0;
             this.dgv_contactos.SelectionChanged += new System.EventHandler(this.dgv_contactos_SelectionChanged);
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Apellidos
-            // 
-            this.Apellidos.HeaderText = "Apellidos";
-            this.Apellidos.Name = "Apellidos";
-            this.Apellidos.ReadOnly = true;
-            // 
-            // Direccion
-            // 
-            this.Direccion.HeaderText = "Dirección";
-            this.Direccion.Name = "Direccion";
-            this.Direccion.ReadOnly = true;
-            // 
-            // Telefono
-            // 
-            this.Telefono.HeaderText = "Teléfono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
             // 
             // panel3
             // 
@@ -278,6 +264,56 @@ namespace EJERCICIO3
             this.panel4.Size = new System.Drawing.Size(443, 235);
             this.panel4.TabIndex = 3;
             // 
+            // contactosBindingSource
+            // 
+            this.contactosBindingSource.DataMember = "Contactos";
+            this.contactosBindingSource.DataSource = this.datos;
+            // 
+            // datos
+            // 
+            this.datos.DataSetName = "Datos";
+            this.datos.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // contactosTableAdapter
+            // 
+            this.contactosTableAdapter.ClearBeforeFill = true;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "Nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Apellidos
+            // 
+            this.Apellidos.DataPropertyName = "Apellidos";
+            this.Apellidos.HeaderText = "Apellidos";
+            this.Apellidos.Name = "Apellidos";
+            this.Apellidos.ReadOnly = true;
+            // 
+            // Direccion
+            // 
+            this.Direccion.DataPropertyName = "Direccion";
+            this.Direccion.HeaderText = "Direccion";
+            this.Direccion.Name = "Direccion";
+            this.Direccion.ReadOnly = true;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "Telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,12 +323,15 @@ namespace EJERCICIO3
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Ejercicio 3";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_contactos)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.contactosBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -315,13 +354,17 @@ namespace EJERCICIO3
         private System.Windows.Forms.TextBox txt_direccion;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DataGridView dgv_contactos;
+        private System.Windows.Forms.Button btn_eliminar;
+        private System.Windows.Forms.Button btn_modificar;
+        private System.Windows.Forms.Button btn_limpiar;
+        private Datos datos;
+        private System.Windows.Forms.BindingSource contactosBindingSource;
+        private DatosTableAdapters.ContactosTableAdapter contactosTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellidos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
-        private System.Windows.Forms.Button btn_eliminar;
-        private System.Windows.Forms.Button btn_modificar;
-        private System.Windows.Forms.Button btn_limpiar;
     }
 }
 
