@@ -15,7 +15,7 @@ namespace EJERCICIO3
         /*
             Autor: Unai Echeverria
             Pasos realizados:
-                1. He modificado el dataGridView añadiendole el origen de datos de la pestaña de diseño
+                1. He modificado el dataGridView añadiendole el origen de datos desde la pestaña de diseño
                 2. He eliminado las 4 columnas que habíamos añadido nosotros manualmente del dataGridView
                 3. He modificado las columnas añadidas por el origen de datos para hacerlas coincidir con las que teniamos
                     En el dataGridView: Editar columnas > Diseño > Name. Cambiar el que venía por los nuestros (Nombre, Apellido, etc.)
